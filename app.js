@@ -56,7 +56,7 @@ if (process.env.NODE_ENV === "production") {
 app.use(unknownEndpoints);
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 const server = app.listen(
   PORT,
@@ -68,6 +68,8 @@ const server = app.listen(
 //Handle unhandle promise rejection
 
 process.on("unhandledRejection", (err, promise) => {
+  // debug
+  console.log('before error message ');
   console.log(`Error: ${err.message}`.red.bold);
   //close the server
   server.close(() => process.exit(1));
