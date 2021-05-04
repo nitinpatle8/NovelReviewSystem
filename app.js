@@ -8,7 +8,7 @@ const { unknownEndpoints, errorHandler } = require("./middleware/error");
 const connectDb = require("./config/db");
 const app = express();
 
-dotenv.config({ path: "./config/config.env" });
+dotenv.config({ path: ".env" });
 
 connectDb();
 
@@ -70,6 +70,7 @@ const server = app.listen(
 process.on("unhandledRejection", (err, promise) => {
   // debug
   console.log('before error message ');
+  console.log(promise);
   console.log(`Error: ${err.message}`.red.bold);
   //close the server
   server.close(() => process.exit(1));
