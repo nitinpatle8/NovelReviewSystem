@@ -24,18 +24,21 @@ const RegisterUser = asyncHandler(async (req, res, next) => {
       code: uid,
       name: newUser.name,
     };
-
-    await verifyEmail(options);
-
+    console.log("verify debug 0");
+    //await verifyEmail(options);
+    console.log("verify debug 1");
     var job = cron.schedule(
       "59 * * * *",
       async () => {
         try {
+          console.log("verify debug 2");
           const user1 = await User.findOne({
             email: newUser.email,
           });
+          // user1.verify = true;
           if (user1.verify === false) {
             try {
+              console.log("verify debug 3");
               await User.findOneAndDelete({
                 email: user1.email,
               });
@@ -59,7 +62,11 @@ const RegisterUser = asyncHandler(async (req, res, next) => {
       message: "Verification Code sent to your email.",
     });
   } catch (error) {
+    console.log('in catch clause');
     throw createError(500, "Verification email cound't be sent");
+    
+  } finally{
+    console.log("finally clause")
   }
 
   // sendTokenResponse(newUser, 200, res);

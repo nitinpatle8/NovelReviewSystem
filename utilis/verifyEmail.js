@@ -1,8 +1,12 @@
 const sgMail = require("@sendgrid/mail");
 
+const dotenv = require("dotenv");
+
+dotenv.config({ path: ".env" });
+
 const verifyEmail = async (options) => {
   sgMail.setApiKey(process.env.SEND_GRID_KEY);
-
+  console.log("utilis/verifyEmail.js verify debug 1");
   const message = {
     from: `${process.env.FROM_NAME} <${process.env.FROM_EMAIL}>`,
     to: options.email,
@@ -17,6 +21,9 @@ const verifyEmail = async (options) => {
       options.code +
       " </h3></div><p>If this request is not made by you kindly ignore this mail.</p><p>Regards, <strong>Sajid Ansari(Owner)</strong></p>",
   };
-  await sgMail.send(message);
+  console.log("utilis/verifyEmail.js verify debug 2");
+
+  //await sgMail.send(message);
+  console.log("utilis/verifyEmail.js verify debug 3");
 };
 module.exports = verifyEmail;
