@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Form, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import ErrorMessage from "../components/Message/errorMessage";
+
 import SuccessMessage from "../components/Message/successMessage";
 import FormContainer from "../components/FormContainer/FormContainer";
 import {
@@ -41,8 +42,12 @@ const Register = ({ location, history }) => {
     if (success) {
       setTimeout(() => {
         const redirectUrl = redirect
-          ? `/EmailVerification?redirect=${redirect}`
+        ? `/login`
+        // /EmailVerification?redirect=/
+        //  ? `/EmailVerification?redirect=${redirect}`
+        //  ? `/EmailVerification?redirect=${redirect}`
           : "/EmailVerification";
+        
         history.push(redirectUrl);
       }, 5000);
     }

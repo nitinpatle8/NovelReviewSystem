@@ -35,7 +35,7 @@ const RegisterUser = asyncHandler(async (req, res, next) => {
           const user1 = await User.findOne({
             email: newUser.email,
           });
-          // user1.verify = true;
+          user1.verify = true;
           if (user1.verify === false) {
             try {
               console.log("verify debug 3");
