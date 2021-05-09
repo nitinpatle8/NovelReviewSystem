@@ -17,7 +17,7 @@ const RegisterUser = asyncHandler(async (req, res, next) => {
   }
   const newUser = await User.create({ ...req.body, uid: uid });
 
-  try {
+  try {k
     const options = {
       email: newUser.email,
       subject: "Account Verification",

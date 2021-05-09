@@ -49,10 +49,10 @@ const advanceResults = (model, populate) => async (req, res, next) => {
   if (populate) {
     query = query.populate(populate);
   }
-
+  console.log(query);
   //Execute Query
   const results = await query;
-
+  console.log(results);
   //Pagination Result
   // const pagination = {};
 

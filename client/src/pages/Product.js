@@ -17,6 +17,8 @@ import * as productConstants from "../constants/productConstants";
 import SinglePageLoader from "../components/Loader/SinglePageLoader";
 import { addToCart } from "../actions/cartAction";
 
+// product .query.keyword is undefined empty
+
 const useStyles = makeStyles((theme) => ({
   typography: {
     padding: theme.spacing(2),

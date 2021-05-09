@@ -32,6 +32,15 @@ export const listProducts = (productInfo) => async (dispatch) => {
         payload: { productList, totalProduct },
       });
     });
+    // await axios.get(`/api/v1/product/?${queryString.join("")}`).then((resp) => {
+    //   const productList = resp.data.data.results;
+    //   const totalProduct = resp.data.data.count;
+
+    //   dispatch({
+    //     type: productConstants.PRODUCTLIST_FETCH_SUCCESS,
+    //     payload: { productList, totalProduct },
+    //   });
+    // });
   } catch (error) {
     dispatch({
       type: productConstants.PRODUCTLIST_FETCH_ERROR,

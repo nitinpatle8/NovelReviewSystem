@@ -11,7 +11,13 @@ cloudinary.config({
 });
 
 const getProducts = asyncHandler(async (req, res, next) => {
+
   const keyWord = req.query.keyWord;
+
+  console.log(keyWord); // printing undefined
+  console.log(req.query.name);
+  console.log(req.query);
+  console.log("in controller/product.js in getProducts function debug 0");
 
   if (keyWord) {
     const searchItem = keyWord
@@ -19,13 +25,17 @@ const getProducts = asyncHandler(async (req, res, next) => {
       : {};
 
     const searchProduct = await Product.find(searchItem);
-
+    console.log("in controller/product.js in getProducts function debug 1");
     res.status(200).send({
       status: "success",
 
       data: { results: searchProduct, count: searchProduct.length },
     });
+
+    console.log("in controller/product.js in getProducts function debug 2");
+
   } else {
+    console.log("in controller/product.js in getProducts function debug 3");
     res.status(200).send({ status: "success", data: res.advanceResults });
   }
 });
@@ -35,12 +45,14 @@ const getProduct = asyncHandler(async (req, res, next) => {
     path: "Reviews",
     select: "title text",
   });
-
+  console.log("in controller/product.js in getProduct function debug 0");
   if (!product)
     throw createError(
       404,
       `Product is not found with id of ${req.params.productId}`
     );
+
+    console.log("in controller/product.js in getProduct function debug 1");
 
   res.status(200).send({ status: "success", data: product });
 });
@@ -63,6 +75,7 @@ const createProduct = asyncHandler(async (req, res, next) => {
       `Please upload a image of size less than ${process.env.FILE_UPLOAD_SIZE}`
     );
 
+    console.log("in controller/product.js in createProduct function debug 0");
   cloudinary.uploader.upload(
     file.tempFilePath,
     { use_filename: true, folder: "products" },
@@ -86,7 +99,7 @@ const updateProduct = asyncHandler(async (req, res, next) => {
       runValidators: true,
     }
   );
-
+  console.log("in controller/product.js in UpdateProduct function debug 0");
   if (!editProduct)
     throw createError(
       404,

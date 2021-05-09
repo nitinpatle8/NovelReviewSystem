@@ -28,6 +28,20 @@ app.use(
   })
 );
 
+
+var bodyParser = require('body-parser');
+var cloudinary = require('cloudinary').v2;
+
+app.use(bodyParser.json());
+
+cloudinary.config({
+
+  cloud_name: 'dncbi0nnk',
+  api_key: '875596772675126',
+  api_secret: 'tRQOnKM9OKi5mV0IyLrZPZX3BVU'
+
+});
+
 app.use(cors());
 
 app.use("/api/v1/auth", authRouter);
@@ -55,6 +69,13 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(unknownEndpoints);
 app.use(errorHandler);
+
+//
+app.post('/', (req, res, next) => {
+  //const file = req.files.photo;
+  console.log(req.body);
+  res.send()
+})
 
 const PORT = process.env.PORT || 5000;
 
