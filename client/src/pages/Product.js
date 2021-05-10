@@ -40,6 +40,7 @@ const ProductDetails = ({ match, history }) => {
   const [qty, setQty] = useState(1);
 
   const productData = useSelector((state) => state.Product);
+  // const productData = useSelector((state) => state.productConstants);
   const reviewResponses = useSelector((state) => state.createReview);
 
   const { error: createReviewError } = reviewResponses;
@@ -80,6 +81,7 @@ const ProductDetails = ({ match, history }) => {
           <Row>
             <Col md={6}>
               <Image src={product.productImage} alt={product.name} fluid />
+              {/* <Image src="/uploads/product/peter.jpg" alt={product.name} fluid /> */}
             </Col>
             <Col md={3}>
               <ListGroup variant="flush">

@@ -28,9 +28,9 @@ app.use(
   })
 );
 
-
+// jayesh
 var bodyParser = require('body-parser');
-var cloudinary = require('cloudinary').v2;
+const cloudinary = require("cloudinary").v2;
 
 app.use(bodyParser.json());
 
@@ -70,12 +70,12 @@ if (process.env.NODE_ENV === "production") {
 app.use(unknownEndpoints);
 app.use(errorHandler);
 
-//
-app.post('/', (req, res, next) => {
-  //const file = req.files.photo;
-  console.log(req.body);
-  res.send("this is post method");
-})
+// jayesh
+// app.post('/', (req, res, next) => {
+//   const file = req.files.photo;
+//   console.log(req.body);
+//   res.send("this is post method");
+// })
 
 const PORT = process.env.PORT || 5000;
 
@@ -87,8 +87,6 @@ const server = app.listen(
 );
 
 //Handle unhandle promise rejection
-cloudinary.v2.uploader.upload("client/public/logo192.png", 
-    function(error, result) {console.log(result, error); });
 
 process.on("unhandledRejection", (err, promise) => {
   // debug

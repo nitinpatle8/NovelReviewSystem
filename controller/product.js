@@ -40,19 +40,26 @@ const getProducts = asyncHandler(async (req, res, next) => {
   }
 });
 
+
+// const asyncHandler = (fn) => (req, res, next) =>
+//   Promise.resolve(fn(req, res, next)).catch(next);
+
+// module.exports = asyncHandler;
+
+
 const getProduct = asyncHandler(async (req, res, next) => {
   const product = await Product.findById(req.params.productId).populate({
     path: "Reviews",
     select: "title text",
   });
-  console.log("in controller/product.js in getProduct function debug 0");
+  console.log("in controller/product.js in getProduct function debug 4");
   if (!product)
     throw createError(
       404,
       `Product is not found with id of ${req.params.productId}`
     );
 
-    console.log("in controller/product.js in getProduct function debug 1");
+    console.log("in controller/product.js in getProduct function debug 5");
 
   res.status(200).send({ status: "success", data: product });
 });
@@ -61,6 +68,7 @@ const createProduct = asyncHandler(async (req, res, next) => {
   if (!req.files) throw createError(400, "Please add a photo");
 
   console.log(req.files);
+  console.log("I am here line 71");
 
   const file = req.files.productImage;
 
@@ -75,7 +83,7 @@ const createProduct = asyncHandler(async (req, res, next) => {
       `Please upload a image of size less than ${process.env.FILE_UPLOAD_SIZE}`
     );
 
-    console.log("in controller/product.js in createProduct function debug 0");
+    console.log("in controller/product.js in createProduct function debug 6");
   cloudinary.uploader.upload(
     file.tempFilePath,
     { use_filename: true, folder: "products" },
@@ -99,7 +107,7 @@ const updateProduct = asyncHandler(async (req, res, next) => {
       runValidators: true,
     }
   );
-  console.log("in controller/product.js in UpdateProduct function debug 0");
+  console.log("in controller/product.js in UpdateProduct function debug 7");
   if (!editProduct)
     throw createError(
       404,
