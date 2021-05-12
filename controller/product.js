@@ -68,7 +68,7 @@ const createProduct = asyncHandler(async (req, res, next) => {
   if (!req.files) throw createError(400, "Please add a photo");
 
   console.log(req.files);
-  console.log("I am here line 71");
+  //console.log("I am here line 71");
 
   const file = req.files.productImage;
 

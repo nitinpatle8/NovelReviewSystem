@@ -1,13 +1,19 @@
 const asyncHandler = require("../middleware/async");
 const createError = require("../utilis/createError");
 const Order = require("../models/Order");
+
+//Self done
 const Product = require("../models/Product");
 
 const getOrders = asyncHandler(async (req, res, next) => {
+  console.log("getOrders in controller/order.js");
   res.status(200).send(res.advanceResults);
 });
+
 const authOrder = asyncHandler(async (req, res, next) => {
+  console.log("in authOrder in order.js in controller.js");
   const authOrders = await Order.find({ userId: req.user._id });
+  console.log("authorder in controlleer/order.js");
   return res.status(200).send({
     status: "success",
     count: authOrders.length,
@@ -16,6 +22,7 @@ const authOrder = asyncHandler(async (req, res, next) => {
 });
 
 const getOrder = asyncHandler(async (req, res, next) => {
+  console.log("in getOrder in order.js in corntroller.js");
   const findOrder = await Order.findById(req.params.orderId).populate({
     path: "userId",
     select: "name email",
@@ -34,6 +41,40 @@ const getOrder = asyncHandler(async (req, res, next) => {
 });
 
 const createOrder = asyncHandler(async (req, res, next) => {
+  console.log("createorder in controller/order.js and req.user._id " + req.user._id);
+  const newOrder = await Order.create({
+    ...req.body,
+    userId: req.user._id,
+  });
+  // const getOrderItem = await Order.findById(req.params.orderId);
+  // console.log(getOrderItem);
+  console.log("inside createOrder in order.js in controller after newOrder");
+  // console.log("newOrder " + newOrder);
+  let orderItems = newOrder.orderItems;
+
+  // console.log(orderItems);
+  // const updatedorder = await Order.findById(req.params.orderId);
+  // console.log("updateorder " + updateorder);
+  //let orderItems = updatedorder.orderItems
+  //console.log("orderItems" + orderItems);
+  //console.log("fsdf line 81 order.js");
+  orderItems.forEach((i)=>{
+    let productId = i.productId;
+    let qty = i.qty;
+
+    let product = Product.findById(productId);
+    product.countInStock -= qty;
+    // product.save();
+    console.log("inside controller/order.js after product.save\n");
+  });
+  
+  res
+    .status(200)
+    .send({ status: "success", message: "New Order Created", data: newOrder });
+    console.log("createorder in controller/order.js after res.send()");
+});
+
+/*const createOrder = asyncHandler(async (req, res, next) => {
   const newOrder = await Order.create({
     ...req.body,
     userId: req.user._id,
@@ -42,11 +83,14 @@ const createOrder = asyncHandler(async (req, res, next) => {
   res
     .status(201)
     .send({ status: "success", message: "New Order Created", data: newOrder });
-});
+});*/
+
+
 
 const payment = asyncHandler(async (req, res, next) => {
+  console.log("in payment function in order.js in controller");
   const order = await Order.findById(req.params.orderId);
-
+  console.log("in payment function in order.js in controller");
   if (!order)
     throw createError(
       404,
@@ -74,15 +118,27 @@ const payment = asyncHandler(async (req, res, next) => {
   await order.save();
 
   const updatedorder = await Order.findById(req.params.orderId);
-
   
+  // let orderItems = updatedorder.orderItems
+  // console.log("orderItems" + orderItems);
+  // //console.log("fsdf line 81 order.js");
+  // orderItems.forEach((i)=>{
+  //   let productId = i.productId;
+  //   let qty = i.qty;
 
+  //   let product = Product.findById(productId);
+  //   product.countInStock -= qty;
+  //   product.save();
+  //   console.log("inside controller/order.js after product.save\n");
+  // });
+      
   res
     .status(201)
     .send({ status: "success", message: "Order Paid.", data: updatedorder });
 });
 
 const deliverOrder = asyncHandler(async (req, res, next) => {
+  console.log("deliverOrder function in controller/order.js");
   const order = await Order.findById(req.params.orderId);
 
   if (!order)
@@ -104,6 +160,7 @@ const deliverOrder = asyncHandler(async (req, res, next) => {
 });
 
 const updateOrder = asyncHandler(async (req, res, next) => {
+  console.log("updateOrder function in controller/order.js");
   const order = await Order.findById(req.params.orderId);
 
   if (!order)
@@ -133,6 +190,7 @@ const updateOrder = asyncHandler(async (req, res, next) => {
 });
 
 const deleteOrder = asyncHandler(async (req, res, next) => {
+  console.log("updateOrder function in controller/deleteOrder.js");
   const order = await Order.findById(req.params.orderId);
 
   if (!order)

@@ -8,13 +8,14 @@ import TableLoader from "../components/Loader/TableLoader";
 import Print from "../components/Print/Print";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
+
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 const OrderList = () => {
   const orderList = useSelector((state) => state.orderList);
   const userLogin = useSelector((state) => state.userLogin);
 
-  const { orders, loading, error, count } = orderList;
+  const { orders, loading, error, count  } = orderList;
   const { userInfo } = userLogin;
 
   const dispatch = useDispatch();
@@ -241,20 +242,20 @@ const OrderList = () => {
                 <td>{order.userId && order.userId.name}</td>
                 <td>{order.createdAt.substring(0, 10)}</td>
                 <td>${order.totalPrice}</td>
-                <td>
+                {/* <td>
                   {order.isPaid ? (
-                    order.paidAt.substring(0, 10)
-                  ) : (
+                    {/* order.paidAt.substring(0, 10) */}
+                  {/* ) : (
                     <i className="fas fa-times" style={{ color: "red" }}></i>
                   )}
                 </td>
                 <td>
                   {order.isDelivered ? (
-                    order.deliveredAt.substring(0, 10)
-                  ) : (
+                    {/* order.deliveredAt.substring(0, 10) */}
+                  {/* ) : (
                     <i className="fas fa-times" style={{ color: "red" }}></i>
-                  )}
-                </td>
+                  )} 
+                </td> */}
                 <td>
                   <LinkContainer to={`/order/${order._id}`}>
                     <Button variant="light" className="btn-sm">
