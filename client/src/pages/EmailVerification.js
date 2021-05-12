@@ -44,7 +44,7 @@ const EmailVerification = ({ location, history }) => {
   return (
     <>
       {error && (
-        <ErrorMessage
+        <ErrorMessage                                           //Here is error for
           header="Auth Error"
           message={error}
           reset={userConstants.RESET}

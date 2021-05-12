@@ -17,7 +17,7 @@ const RegisterUser = asyncHandler(async (req, res, next) => {
   }
   const newUser = await User.create({ ...req.body, uid: uid });
 
-  try {k
+  try {//k
     const options = {
       email: newUser.email,
       subject: "Account Verification",
@@ -27,42 +27,42 @@ const RegisterUser = asyncHandler(async (req, res, next) => {
     console.log("verify debug 0");
     //await verifyEmail(options);
     console.log("verify debug 1");
-    var job = cron.schedule(
-      "59 * * * *",
-      async () => {
-        try {
-          console.log("verify debug 2");
-          const user1 = await User.findOne({
-            email: newUser.email,
-          });
-          user1.verify = true;
-          if (user1.verify === false) {
-            try {
-              console.log("verify debug 3");
-              await User.findOneAndDelete({
-                email: user1.email,
-              });
-            } catch (er) {
-              console.log(er);
-            }
-          }
-        } catch (error) {
-          console.log(error);
-        }
-      },
-      {
-        scheduled: false,
-      }
-    );
+    // var job = cron.schedule(
+    //   "59 * * * *",
+    //   async () => {
+    //     try {
+    //       console.log("verify debug 2");
+    //       // const user1 = await User.findOne({
+    //       //   email: newUser.email,
+    //       // });
+    //       user1.verify = true;
+    //       if (user1.verify === false) {
+    //         try {
+    //           console.log("verify debug 3");
+    //           // await User.findOneAndDelete({
+    //           //   email: user1.email,
+    //           // });
+    //         } catch (er) {
+    //           console.log(er);
+    //         }
+    //       }
+    //     } catch (error) {
+    //       console.log(error);
+    //     }
+    //   },
+    //   {
+    //     scheduled: false,
+    //   }
+    // );
 
-    job.start();
+    // job.start();
 
     res.status(200).send({
       status: "success",
-      message: "Verification Code sent to your email.",
+      //message: "",
     });
   } catch (error) {
-    console.log('in catch clause');
+    console.log('in catch clausene 65');
     throw createError(500, "Verification email cound't be sent");
     
   } finally{
@@ -86,18 +86,18 @@ const login = asyncHandler(async (req, res, next) => {
 });
 
 const verificationEmail = asyncHandler(async (req, res, next) => {
-  const user = await User.findOne({
-    uid: req.body.verificationCode,
-  });
+  // const user = await User.findOne({
+  //   uid: req.body.verificationCode,
+  // });
 
-  if (!user) throw createError(401, "Invalid verifaication code");
+  // if (!user) throw createError(401, "Invalid verifaication code");
 
-  if (user.verify)
-    throw createError(401, "You have already verified. Login in to continue.");
+  // if (user.verify)
+  //   throw createError(401, "You have already verified. Login in to continue.");
 
   user.verify = true;
 
-  await user.save({ validateBeforeSave: false });
+  // await user.save({ validateBeforeSave: false });
 
   sendTokenResponse(user, 200, res);
 });

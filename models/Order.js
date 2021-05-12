@@ -73,14 +73,14 @@ const OrderSchema = new mongoose.Schema({
   },
   isPaid: {
     type: Boolean,
-    default: false,
+    default: true,                  //Default true for Payment
   },
   paidAt: {
     type: Date,
   },
   isDelivered: {
     type: Boolean,
-    default: false,
+    default: true,                  //Default true for Delivered
   },
   paymentResult: {
     id: { type: String },

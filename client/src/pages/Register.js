@@ -42,7 +42,7 @@ const Register = ({ location, history }) => {
     if (success) {
       setTimeout(() => {
         const redirectUrl = redirect
-        ? `/login`
+        ? "/login"
         // /EmailVerification?redirect=/
         //  ? `/EmailVerification?redirect=${redirect}`
         //  ? `/EmailVerification?redirect=${redirect}`
