@@ -10,7 +10,7 @@ const app = express();
 
 dotenv.config({ path: ".env" });
 
-connectDb();
+const db = connectDb();
 
 //rouets
 const authRouter = require("./routes/auth");
@@ -96,3 +96,4 @@ process.on("unhandledRejection", (err, promise) => {
   //close the server
   server.close(() => process.exit(1));
 });
+

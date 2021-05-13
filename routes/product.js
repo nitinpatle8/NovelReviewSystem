@@ -9,7 +9,7 @@ const {
 //Invoked middleware.
 const advanceResults = require("../middleware/advanceResults");
 const { protect, permission } = require("../middleware/auth");
-
+const db = require("../app");
 //Product model
 const Product = require("../models/Product");
 

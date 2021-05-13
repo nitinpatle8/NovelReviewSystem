@@ -1,9 +1,13 @@
 const asyncHandler = require("../middleware/async");
 const createError = require("../utilis/createError");
 const Order = require("../models/Order");
+const mongoose = require("mongoose");
 
 //Self done
 const Product = require("../models/Product");
+
+
+const connectDB = require("../config/db");
 
 const getOrders = asyncHandler(async (req, res, next) => {
   console.log("getOrders in controller/order.js");
@@ -58,14 +62,34 @@ const createOrder = asyncHandler(async (req, res, next) => {
   //let orderItems = updatedorder.orderItems
   //console.log("orderItems" + orderItems);
   //console.log("fsdf line 81 order.js");
-  orderItems.forEach((i)=>{
+  orderItems.forEach(async (i)=>{
+    console.log("this is i " +  i);
     let productId = i.productId;
+      
+    console.log("this is productId " + productId);
     let qty = i.qty;
+    let product = await Product.findById(productId);
+    console.log("product is " + product + typeof(product));
+    // console.log("product description " + product.description);
+    // product.countInStock -= qty;
+    // await product.save();
+    // var myquery = { _id: `${productId}` };
+    // var newvalues = { $set: {countInStock: product.countInStock} };
+    //  const db1=connectDB();
+    //  console.log(db1);
+    // let collection = db1.myFirstDatabase.products;
+    // console.log("this is my collection " + collection);
+    // collection.update(myquery, newvalues, ()=>{});
+    // console.log("inside controller/order.js after product.save\n");
+    // product.get({countInStock});
 
-    let product = Product.findById(productId);
-    product.countInStock -= qty;
-    // product.save();
-    console.log("inside controller/order.js after product.save\n");
+    console.log("product in count stock " + product.countInStock);
+    console.log("before product update");
+    let finalqty = product.countInStock-qty;
+    await Product.updateOne( {_id: productId}, 
+      {countInStock:finalqty}
+    );
+    console.log("after product update ");
   });
   
   res
