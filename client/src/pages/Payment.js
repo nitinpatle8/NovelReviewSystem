@@ -14,7 +14,9 @@ import {
 } from "@material-ui/core/";
 
 const PaymentMethod = ({ history }) => {
+
   if (!localStorage.getItem("shippingAddress")) {
+
     history.push("/shipping");
   }
 
@@ -24,10 +26,13 @@ const PaymentMethod = ({ history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    console.log("Payment in pages/Payment.js 1");
     if (paymentMethod === "") {
       return;
     }
+    console.log("Payment in pages/Payment.js 2");
     dispatch(savePaymentMethod(paymentMethod));
+    console.log("Payment in pages/Payment.js 3");
     history.push("/placeorder");
   };
 

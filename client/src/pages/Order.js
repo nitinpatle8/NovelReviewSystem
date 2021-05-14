@@ -17,6 +17,8 @@ import OrderLoader from "../components/Loader/OrderLoader";
 
 const Order = ({ match }) => {
   const orderId = match.params.orderId;
+  // console.log("in pages/order.js  -> order " +  match.params.orderDetails);
+  console.log("in pages/order.js -> ORder " + orderId);
 
   const [sdkReady, setSdkReady] = useState(false);
   const [initialLoading, setInitialLoading] = useState(true);

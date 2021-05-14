@@ -52,7 +52,7 @@ const createOrder = asyncHandler(async (req, res, next) => {
   });
   // const getOrderItem = await Order.findById(req.params.orderId);
   // console.log(getOrderItem);
-  console.log("inside createOrder in order.js in controller after newOrder");
+  // console.log("inside createOrder in order.js in controller after newOrder");
   // console.log("newOrder " + newOrder);
   let orderItems = newOrder.orderItems;
 
@@ -63,13 +63,13 @@ const createOrder = asyncHandler(async (req, res, next) => {
   //console.log("orderItems" + orderItems);
   //console.log("fsdf line 81 order.js");
   orderItems.forEach(async (i)=>{
-    console.log("this is i " +  i);
+    // console.log("this is i " +  i);
     let productId = i.productId;
       
-    console.log("this is productId " + productId);
+    // console.log("this is productId " + productId);
     let qty = i.qty;
     let product = await Product.findById(productId);
-    console.log("product is " + product + typeof(product));
+    //console.log("product is " + product + typeof(product));
     // console.log("product description " + product.description);
     // product.countInStock -= qty;
     // await product.save();
@@ -83,13 +83,13 @@ const createOrder = asyncHandler(async (req, res, next) => {
     // console.log("inside controller/order.js after product.save\n");
     // product.get({countInStock});
 
-    console.log("product in count stock " + product.countInStock);
-    console.log("before product update");
+    //console.log("product in count stock " + product.countInStock);
+    // console.log("before product update");
     let finalqty = product.countInStock-qty;
     await Product.updateOne( {_id: productId}, 
       {countInStock:finalqty}
     );
-    console.log("after product update ");
+    // console.log("after product update ");
   });
   
   res

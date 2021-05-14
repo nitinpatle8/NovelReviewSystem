@@ -3,6 +3,7 @@ import * as cartConstants from "../constants/cartConstants";
 
 export const addToCart = (id, qty) => async (dispatch, getState) => {
   try {
+    console.log("in addToCart in actions/cartActions");
     await axios.get(`/api/v1/product/${id}`).then((resp) => {
       const data = resp.data.data;
 
@@ -35,6 +36,7 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
 };
 
 export const removeItemFromCart = (id) => async (dispatch, getState) => {
+  console.log("in removeItem in actions/cartActions");
   dispatch({
     type: cartConstants.CART_REMOVE_ITEM,
     payload: id,

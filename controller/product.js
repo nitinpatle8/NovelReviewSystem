@@ -46,7 +46,7 @@ const getProducts = asyncHandler(async (req, res, next) => {
 
 // module.exports = asyncHandler;
 
-
+// add to cart process here
 const getProduct = asyncHandler(async (req, res, next) => {
   const product = await Product.findById(req.params.productId).populate({
     path: "Reviews",

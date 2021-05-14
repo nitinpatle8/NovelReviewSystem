@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ErrorMessage from "../components/Message/errorMessage";
 import CheckoutSteps from "../components/CheckoutStep/CheckoutSteps";
 import { createOrder } from "../actions/orderAction";
+// import {cart} from "../actions/cartAction";
 import * as orderConstants from "../constants/orderConstants";
 import { Button, CircularProgress, makeStyles } from "@material-ui/core/";
 
@@ -15,11 +16,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const PlaceOrder = ({ history }) => {
+  console.log("PlaceOrder in PlaceOrder.js line 18");
   const dispatch = useDispatch();
   const classes = useStyles();
 
   const cart = useSelector((state) => state.cart);
-
+  console.log(cart);
   //   Calculate prices
   const addDecimals = (num) => {
     return (Math.round(num * 100) / 100).toFixed(2);
@@ -37,16 +39,25 @@ const PlaceOrder = ({ history }) => {
   ).toFixed(2);
 
   const orderCreate = useSelector((state) => state.createOrder);
+  console.log("state.createOrder " + orderCreate);
   const { order, success, error, loading } = orderCreate;
-
+  console.log("Order in Placeorder " + order);
   useEffect(() => {
+    
     if (success) {
+      
+      
+      console.log("this is in Pages/placeorder.js");
+      console.log("order name: " + order.orderItems[0].productName);
       history.push(`/order/${order._id}`);
+    // history.push('https://www.google.com');
     }
     // eslint-disable-next-line
   }, [history, success]);
 
   const placeOrderHandler = () => {
+
+    history.push(`/order/${order._id}`);
     dispatch(
       createOrder({
         orderItems: cart.cartItems,
@@ -60,6 +71,9 @@ const PlaceOrder = ({ history }) => {
         totalPrice: cart.totalPrice,
       })
     );
+    
+    console.log("In placeOrderHandler after dispatch ");
+    //history.push(`/order/${order._id}`);
   };
 
   return (

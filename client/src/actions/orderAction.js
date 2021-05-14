@@ -4,6 +4,12 @@ import * as cartConstants from "../constants/cartConstants";
 
 export const createOrder = (orderData) => async (dispatch, getState) => {
   try {
+
+    // localStorage.removeItem("cartItems");
+    // localStorage.removeItem("shippingAddress");
+    // localStorage.removeItem("paymentMethod");
+    console.log("in orderAction in Actions ", orderData);
+    console.log("in create order actions/orderActions.js");
     dispatch({ type: orderConstants.CREATE_ORDER_START });
 
     const {
@@ -32,6 +38,7 @@ export const createOrder = (orderData) => async (dispatch, getState) => {
       type: cartConstants.CART_RESET,
     });
   } catch (error) {
+    console.log("error in create order actions/orderActions.js");
     dispatch({
       type: orderConstants.CREATE_ORDER_FAIL,
       payload:
@@ -47,6 +54,7 @@ export const getOrder = (orderId, initialLoading) => async (
   getState
 ) => {
   try {
+    console.log("in get order in actions/orderActions.js");
     if (initialLoading) {
       dispatch({ type: orderConstants.GET_ORDER_START });
     }
@@ -70,6 +78,7 @@ export const getOrder = (orderId, initialLoading) => async (
       });
     });
   } catch (error) {
+    console.log("error in get order in actions/orderActions.js");
     dispatch({
       type: orderConstants.GET_ORDER_FAIL,
       payload:
@@ -85,6 +94,7 @@ export const payOrder = (orderId, paymentResult) => async (
   getState
 ) => {
   try {
+    console.log("in pay order in actions/orderActions");
     dispatch({
       type: orderConstants.ORDER_PAY_START,
     });
@@ -110,6 +120,7 @@ export const payOrder = (orderId, paymentResult) => async (
         });
       });
   } catch (error) {
+    console.log("error in pay order in actions/orderActions");
     dispatch({
       type: orderConstants.ORDER_PAY_FAIL,
       payload:
@@ -122,6 +133,7 @@ export const payOrder = (orderId, paymentResult) => async (
 
 export const deliverOrder = (orderId) => async (dispatch, getState) => {
   try {
+    console.log("in deliver order in actions/orderActions");
     dispatch({
       type: orderConstants.ORDER_DILIVERD_START,
     });
@@ -147,6 +159,7 @@ export const deliverOrder = (orderId) => async (dispatch, getState) => {
         });
       });
   } catch (error) {
+    console.log("error in deliver order in actions/orderActions");
     dispatch({
       type: orderConstants.ORDER_DILIVERD_FAIL,
       payload:
@@ -159,6 +172,7 @@ export const deliverOrder = (orderId) => async (dispatch, getState) => {
 
 export const authOrder = () => async (dispatch, getState) => {
   try {
+    console.log("in auth order in actions/orderActions");
     dispatch({
       type: orderConstants.AUTH_ORDER_FETCH_START,
     });
@@ -184,6 +198,7 @@ export const authOrder = () => async (dispatch, getState) => {
       });
     });
   } catch (error) {
+    console.log("error in auth order in actions/orderActions");
     dispatch({
       type: orderConstants.AUTH_ORDER_FETCH_FAIL,
       payload:
@@ -196,6 +211,7 @@ export const authOrder = () => async (dispatch, getState) => {
 
 export const listOrders = () => async (dispatch, getState) => {
   try {
+    console.log("in list orders in actions/orderActions");
     dispatch({
       type: orderConstants.ORDERLIST_FETCH_START,
     });
@@ -223,6 +239,7 @@ export const listOrders = () => async (dispatch, getState) => {
       });
     });
   } catch (error) {
+    console.log("error in list orders in actions/orderActions");
     dispatch({
       type: orderConstants.ORDERLIST_FETCH_FAIL,
       payload:
