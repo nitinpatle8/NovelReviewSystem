@@ -61,6 +61,7 @@ function App() {
               exact={true}
               path="/order/:orderId"
               component={Order}
+              refresh={true}
             />
             <PrivateRoute exact={true} path="/profile" component={Profile} />
             <AdminRoute

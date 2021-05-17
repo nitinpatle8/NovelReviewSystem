@@ -40,7 +40,9 @@ const PlaceOrder = ({ history }) => {
 
   const orderCreate = useSelector((state) => state.createOrder);
   console.log("state.createOrder " + orderCreate);
+  // orderCreate.success = false;
   const { order, success, error, loading } = orderCreate;
+  
   console.log("Order in Placeorder " + order);
   useEffect(() => {
     
@@ -49,7 +51,9 @@ const PlaceOrder = ({ history }) => {
       
       console.log("this is in Pages/placeorder.js");
       console.log("order name: " + order.orderItems[0].productName);
+      orderCreate.success = false;
       history.push(`/order/${order._id}`);
+      
     // history.push('https://www.google.com');
     }
     // eslint-disable-next-line
@@ -57,7 +61,7 @@ const PlaceOrder = ({ history }) => {
 
   const placeOrderHandler = () => {
 
-    history.push(`/order/${order._id}`);
+    //history.push(`/order/${order._id}`);
     dispatch(
       createOrder({
         orderItems: cart.cartItems,
@@ -73,7 +77,7 @@ const PlaceOrder = ({ history }) => {
     );
     
     console.log("In placeOrderHandler after dispatch ");
-    //history.push(`/order/${order._id}`);
+    // history.push(`/order/${order._id}`);
   };
 
   return (

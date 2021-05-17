@@ -18,7 +18,10 @@ import OrderLoader from "../components/Loader/OrderLoader";
 const Order = ({ match }) => {
   const orderId = match.params.orderId;
   // console.log("in pages/order.js  -> order " +  match.params.orderDetails);
+  
   console.log("in pages/order.js -> ORder " + orderId);
+  //window.location.reload();
+
 
   const [sdkReady, setSdkReady] = useState(false);
   const [initialLoading, setInitialLoading] = useState(true);
@@ -69,6 +72,7 @@ const Order = ({ match }) => {
   useEffect(() => {
     if (success && initialLoading) {
       setInitialLoading(false);
+      orderDetails.success = false;
     } else {
       dispatch({ type: ORDER_PAY_RESET });
       dispatch({ type: ORDER_DELIVER_RESET });
@@ -139,6 +143,7 @@ const Order = ({ match }) => {
     <>
       {order ? (
         <>
+        {order => this.setState()}
           <h1>Order {order._id}</h1>
           <Row>
             <Col md={8}>

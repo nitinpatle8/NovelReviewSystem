@@ -67,6 +67,7 @@ const ProductReview = ({ productId }) => {
     }
     if (success && initialLoading) {
       setInitialLoading(false);
+      productReviewsData.success = false;
     } else {
       dispatch(productAction.productReview(productId, initialLoading));
     }

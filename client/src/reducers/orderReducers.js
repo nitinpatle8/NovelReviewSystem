@@ -14,9 +14,12 @@ export const createOrderReducer = (state = { order: {} }, action) => {
     case orderConstants.CREATE_ORDER_FAIL:
       return {
         error: action.payload,
+        success: false,
       };
     case orderConstants.CREATE_ORDER_RESET:
-      return {};
+      return {
+        success: false,
+      };
 
     default:
       return state;

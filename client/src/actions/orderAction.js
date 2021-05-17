@@ -27,6 +27,7 @@ export const createOrder = (orderData) => async (dispatch, getState) => {
 
       dispatch({
         type: orderConstants.CREATE_ORDER_SUCCESS,
+        success: true,
         payload: data,
       });
     });
